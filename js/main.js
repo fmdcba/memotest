@@ -58,20 +58,22 @@ function validarEleccionUsuario(event) {
 
   resaltarEmoji(emoji);
 
-  if(eleccionUsuario.length === 2) {
-    const sonIguales = compararElementos();
+  setTimeout(function() {
+    if(eleccionUsuario.length === 2) {
+      const sonIguales = compararElementos();
 
-    if (sonIguales) {
-      manejarInput();
-    } else {
-      ocultarEmoji(emoji);
-      manejarInput();
+      if (sonIguales) {
+        manejarInput();
+      } else {
+        ocultarEmoji(emoji);
+        manejarInput();
+      }
     }
-  }
 
-  if(eleccionesCorrectas.length === emojisDuplicados.length) {
-    terminarPartida();
-  }
+    if(eleccionesCorrectas.length === emojisDuplicados.length) {
+      terminarPartida();
+    }
+  }, 2000);
 }
 
 function compararElementos() {
@@ -84,7 +86,7 @@ function compararElementos() {
     return true;
   } else {
     ocultarEmoji(primerElemento);
-    ocultarEmoji(segundoElemento);
+    ocultarEmoji(segundoElemento)
     return false;
   }
 }
