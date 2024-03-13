@@ -52,10 +52,14 @@ function validarEleccionUsuario(event) {
   const emoji = event.target;
   eleccionUsuario.push(emoji);
 
+  if (eleccionUsuario.length === 2) {
+    bloquearInputUsuario();
+  }
+
   resaltarEmoji(emoji);
 
   setTimeout(function() {
-    if(eleccionUsuario.length === 2) {
+    if (eleccionUsuario.length === 2) {
       const sonIguales = compararElementos();
 
       if (sonIguales) {
@@ -69,7 +73,7 @@ function validarEleccionUsuario(event) {
     if(eleccionesCorrectas.length === emojisDuplicados.length) {
       terminarPartida();
     }
-  }, 2000);
+  }, 1500);
 }
 
 function compararElementos() {
@@ -109,5 +113,11 @@ function animacionTablero() {
     setTimeout(function () {
       cuadro.classList.remove('text-bg-secondary');
     }, 500);
+  })
+}
+
+function bloquearInputUsuario() {
+  document.querySelectorAll('.cuadro').forEach(function (cuadro) {
+    cuadro.onclick = function() {};
   })
 }
