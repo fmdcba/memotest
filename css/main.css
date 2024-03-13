@@ -1,0 +1,25 @@
+div {
+  border: black 3px solid;
+  min-width: 50px;
+  max-width: 100px;
+  min-height: 100px;
+  display: grid;
+  justify-content: center;
+  font-size: 0;
+  transition: 500ms;
+}
+main {
+  border: black 3px solid;
+  min-height: 390px;
+}
+
+main {
+  padding: 3px;
+  padding-right: 3px;
+}
+
+* {
+  padding: 3px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
