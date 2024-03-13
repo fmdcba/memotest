@@ -3,6 +3,7 @@ const EMOJIS = ['😀', '😠', '😉', '😎', '😢', '😛', '😲', '🙄'];
 const emojisDuplicados = EMOJIS.concat(EMOJIS);
 let eleccionUsuario = [];
 let eleccionesCorrectas = [];
+let intentos = 0;
 
 $botonJugar.onclick = function () {
   const emojisDesordenados = desordenarEmojis(emojisDuplicados);
@@ -13,9 +14,11 @@ $botonJugar.onclick = function () {
 }
 
 function reiniciar() {
-  $botonJugar.textContent = 'Jugar'
+  document.querySelector('#mensaje').textContent = 'Encontrá los pares de emojis para ganar';
+  $botonJugar.textContent = 'Jugar';
   eleccionUsuario = [];
   eleccionesCorrectas = [];
+  intentos = 0;
 }
 
 function desordenarEmojis(emojis) {
@@ -53,6 +56,7 @@ function validarEleccionUsuario(event) {
   eleccionUsuario.push(emoji);
 
   if (eleccionUsuario.length === 2) {
+    intentos++;
     bloquearInputUsuario();
   }
 
@@ -103,6 +107,7 @@ function ocultarEmoji(emoji) {
 }
 
 function terminarPartida() {
+  document.querySelector('#mensaje').textContent = `Ganaste y te tomó ${intentos} intentos`;
   $botonJugar.textContent = 'Reiniciar';
 }
 
