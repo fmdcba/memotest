@@ -9,7 +9,7 @@ $botonJugar.onclick = function () {
 
   actualizarTablero(emojisDesordenados);
   animacionTablero();
-  setTimeout(manejarInput, 2000);
+  setTimeout(manejarInput, 1000);
 }
 
 function reiniciar() {
@@ -76,12 +76,15 @@ function validarEleccionUsuario(event) {
 
 function compararElementos() {
   const primerElemento = eleccionUsuario[0];
-  const segundoElemento = eleccionUsuario[-1];
+  const segundoElemento = eleccionUsuario[eleccionUsuario.length -1];
 
   if (primerElemento.textContent === segundoElemento.textContent) {
     eleccionesCorrectas.push(primerElemento);
     eleccionesCorrectas.push(segundoElemento);
     mostrarEmoji()
+  } else {
+    ocultarEmoji(primerElemento);
+    ocultarEmoji(segundoElemento);
   }
 }
 
@@ -106,6 +109,6 @@ function animacionTablero() {
 
     setTimeout(function () {
       cuadro.classList.remove('text-bg-secondary');
-    }, 1000);
+    }, 500);
   })
 }
