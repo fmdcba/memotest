@@ -81,10 +81,11 @@ function compararElementos() {
   if (primerElemento.textContent === segundoElemento.textContent) {
     eleccionesCorrectas.push(primerElemento);
     eleccionesCorrectas.push(segundoElemento);
-    mostrarEmoji()
+    return true;
   } else {
     ocultarEmoji(primerElemento);
     ocultarEmoji(segundoElemento);
+    return false;
   }
 }
 
