@@ -8,12 +8,18 @@ let intentos = 0;
 $botonJugar.onclick = function () {
   const emojisDesordenados = desordenarEmojis(emojisDuplicados);
 
+  reiniciar();
   actualizarTablero(emojisDesordenados);
   animacionTablero();
   setTimeout(manejarInput, 1000);
 }
 
 function reiniciar() {
+  document.querySelectorAll('div').forEach(function (cuadro) {
+    cuadro.style.fontSize = 0;
+    cuadro.classList.add('cuadro');
+    cuadro.classList.remove('text-bg-secondary');
+  })
   document.querySelector('#mensaje').textContent = 'Encontrá los pares de emojis para ganar';
   $botonJugar.textContent = 'Jugar';
   eleccionUsuario = [];
@@ -67,6 +73,7 @@ function validarEleccionUsuario(event) {
       const sonIguales = compararElementos();
 
       if (sonIguales) {
+        deshabilitarCuadro();
         manejarInput();
       } else {
         ocultarEmoji(emoji);
@@ -124,5 +131,11 @@ function animacionTablero() {
 function bloquearInputUsuario() {
   document.querySelectorAll('.cuadro').forEach(function (cuadro) {
     cuadro.onclick = function() {};
+  })
+}
+
+function deshabilitarCuadro() {
+  eleccionesCorrectas.forEach(function(cuadro) {
+    cuadro.classList.remove('cuadro')
   })
 }
