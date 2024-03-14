@@ -92,7 +92,7 @@ function validarEleccionUsuario(event) {
       if(eleccionesCorrectas.length === emojisDuplicados.length) {
         terminarPartida();
       }
-    }, 1500);
+    }, 2000);
   } else {
     eleccionUsuario.pop();
   }
