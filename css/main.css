@@ -5,7 +5,6 @@ div {
   min-height: 100px;
   display: grid;
   justify-content: center;
-  font-size: 'xx-large';
   transition: 500ms;
 }
 main {

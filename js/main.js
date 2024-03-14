@@ -16,7 +16,7 @@ $botonJugar.onclick = function () {
 
 function reiniciar() {
   document.querySelectorAll('div').forEach(function (cuadro) {
-    //cuadro.style.fontSize = 0;
+    cuadro.style.fontSize = 0;
     habilitarCuadro(cuadro);
     cuadro.classList.remove('text-bg-secondary');
   })
@@ -79,7 +79,6 @@ function validarEleccionUsuario(event) {
           eleccionesCorrectas.forEach(function(cuadro) {
             deshabilitarCuadro(cuadro);
           })
-          deshabilitarCuadro();
           manejarInput();
         } else {
           eleccionUsuario.forEach(function(cuadro) {
@@ -148,7 +147,7 @@ function bloquearInputUsuario() {
 }
 
 function deshabilitarCuadro(cuadro) {
-  if (eleccionUsuario.length !== 2) {
+  if (eleccionUsuario.length !== 2 || eleccionesCorrectas.length >= 2) {
     cuadro.classList.remove('cuadro');
   }
 }
