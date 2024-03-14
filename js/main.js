@@ -16,8 +16,8 @@ $botonJugar.onclick = function () {
 
 function reiniciar() {
   document.querySelectorAll('div').forEach(function (cuadro) {
-    cuadro.style.fontSize = 0;
-    cuadro.classList.add('cuadro');
+    //cuadro.style.fontSize = 0;
+    habilitarCuadro(cuadro);
     cuadro.classList.remove('text-bg-secondary');
   })
   document.querySelector('#mensaje').textContent = 'Encontrá los pares de emojis para ganar';
@@ -46,6 +46,7 @@ function desordenarEmojis(emojis) {
 function actualizarTablero(emojis) {
   document.querySelectorAll('.cuadro').forEach(function (cuadro, indice) {
     cuadro.textContent = emojis[indice]
+    cuadro.id = indice;
   })
 }
 
@@ -61,30 +62,42 @@ function validarEleccionUsuario(event) {
   const emoji = event.target;
   eleccionUsuario.push(emoji);
 
-  if (eleccionUsuario.length === 2) {
-    intentos++;
-    bloquearInputUsuario();
+  if (emoji.id !== eleccionUsuario[0].id || eleccionUsuario.length === 1) {
+
+    if (eleccionUsuario.length === 2) {
+      intentos++;
+      bloquearInputUsuario();
+    }
+
+    resaltarEmoji(emoji);
+
+    setTimeout(function() {
+      if (eleccionUsuario.length === 2) {
+        const sonIguales = compararElementos();
+
+        if (sonIguales) {
+          eleccionesCorrectas.forEach(function(cuadro) {
+            deshabilitarCuadro(cuadro);
+          })
+          deshabilitarCuadro();
+          manejarInput();
+        } else {
+          eleccionUsuario.forEach(function(cuadro) {
+            habilitarCuadro(cuadro);
+          })
+          ocultarEmoji(emoji);
+          manejarInput();
+        }
+      }
+
+      if(eleccionesCorrectas.length === emojisDuplicados.length) {
+        terminarPartida();
+      }
+    }, 1500);
+  } else {
+    eleccionUsuario.pop();
   }
 
-  resaltarEmoji(emoji);
-
-  setTimeout(function() {
-    if (eleccionUsuario.length === 2) {
-      const sonIguales = compararElementos();
-
-      if (sonIguales) {
-        deshabilitarCuadro();
-        manejarInput();
-      } else {
-        ocultarEmoji(emoji);
-        manejarInput();
-      }
-    }
-
-    if(eleccionesCorrectas.length === emojisDuplicados.length) {
-      terminarPartida();
-    }
-  }, 1500);
 }
 
 function compararElementos() {
@@ -134,8 +147,12 @@ function bloquearInputUsuario() {
   })
 }
 
-function deshabilitarCuadro() {
-  eleccionesCorrectas.forEach(function(cuadro) {
-    cuadro.classList.remove('cuadro')
-  })
+function deshabilitarCuadro(cuadro) {
+  if (eleccionUsuario.length !== 2) {
+    cuadro.classList.remove('cuadro');
+  }
+}
+
+function habilitarCuadro(cuadro) {
+  cuadro.classList.add('cuadro');
 }
