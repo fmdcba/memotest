@@ -63,7 +63,6 @@ function validarEleccionUsuario(event) {
   eleccionUsuario.push(emoji);
 
   if (emoji.id !== eleccionUsuario[0].id || eleccionUsuario.length === 1) {
-
     if (eleccionUsuario.length === 2) {
       intentos++;
       bloquearInputUsuario();
