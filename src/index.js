@@ -13,6 +13,8 @@ function configurarTablero() {
 
   $cuadros.forEach((cuadro, indice) => {
     cuadro.textContent = elementosMezclados[indice];
+    mostrarCuadro(cuadro);
+    ocultarCuadro(cuadro);
   });
 
   manejarEleccionUsuario($tablero);
