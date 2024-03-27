@@ -1,12 +1,14 @@
 .columna-juego {
   border: black 3px solid;
-  display: grid;
-  justify-content: center;
   transition: 500ms;
 }
 
 .cuadro {
   min-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
 }
 
 main {
