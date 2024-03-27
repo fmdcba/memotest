@@ -1,18 +1,17 @@
-div {
+.columna-juego {
   border: black 3px solid;
-  min-width: 50px;
-  max-width: 100px;
-  min-height: 100px;
   display: grid;
   justify-content: center;
   transition: 500ms;
 }
-main {
-  border: black 3px solid;
-  min-height: 390px;
+
+.cuadro {
+  min-height: 100px;
 }
 
 main {
+  border: black 3px solid;
+  min-height: 390px;
   padding: 3px;
   padding-right: 3px;
 }
