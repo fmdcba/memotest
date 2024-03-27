@@ -4,11 +4,13 @@
 }
 
 .cuadro {
+  text-align: center;
   min-height: 100px;
   display: flex;
   justify-content: center;
   align-content: center;
   flex-direction: column;
+  font-size: 0%;
 }
 
 main {
