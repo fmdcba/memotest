@@ -1,8 +1,9 @@
 const $botonJugar = document.querySelector("button");
-const EMOJIS = ["😀", "😠", "😉", "😎", "😢", "😛", "😲", "🙄"];
+const EMOJIS = ["😀", "😠", "😎", "😲", "🙄", "😂", "👍", "😭"];
 const elementosTablero = EMOJIS.concat(EMOJIS);
 let $primerCuadro = null;
 let intentos = 0;
+let cuadrosEmparejados = 0;
 
 $botonJugar.onclick = configurarTablero;
 
@@ -10,6 +11,7 @@ function configurarTablero() {
   const $tablero = document.querySelector("#tablero");
   const $cuadros = document.querySelectorAll(".cuadro");
   const elementosMezclados = mezclarElementos();
+  reiniciar($cuadros);
 
   $cuadros.forEach((cuadro, indice) => {
     cuadro.textContent = elementosMezclados[indice];
@@ -59,6 +61,8 @@ function compararCuadros($cuadro) {
     if ($primerCuadro.textContent === $cuadro.textContent) {
       deshabilitarCuadro($primerCuadro);
       deshabilitarCuadro($cuadro);
+      cuadrosEmparejados += 2;
+      finalizarJuego();
     } else {
       ocultarCuadro($primerCuadro);
       ocultarCuadro($cuadro);
@@ -75,4 +79,25 @@ function deshabilitarCuadro($cuadro) {
     $cuadro.textContent = "";
     $cuadro.classList.add("text-bg-secondary");
   }, 500);
+}
+
+function finalizarJuego() {
+  if (cuadrosEmparejados === 16) {
+    const $mensajeUsuario = document.querySelector("#mensaje");
+    $mensajeUsuario.textContent = `Felicidades, ganaste y te tomó ${intentos} intentos`;
+  } else {
+    return;
+  }
+}
+
+function reiniciar($cuadros) {
+  const $mensajeUsuario = document.querySelector("#mensaje");
+  $mensajeUsuario.textContent = "Encontrá los pares de emojis para ganar";
+  $botonJugar.textContent = "Reiniciar";
+
+  $cuadros.forEach((cuadro) => {
+    if (cuadro.classList.contains("text-bg-secondary")) {
+      cuadro.classList.remove("text-bg-secondary");
+    }
+  });
 }
