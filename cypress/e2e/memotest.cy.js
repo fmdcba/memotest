@@ -32,7 +32,41 @@ context("test de integracion memotest", () => {
         });
       });
     });
+  });
 
-    it("elige una combinación incorrecta de cuadros", () => {});
+  describe("resuelve el juego", () => {
+    beforeEach(() => {
+      cy.visit(URL);
+    });
+
+    it("elige combinación de cuadros incorrecta", () => {
+      let mapaDePares, listaDePares;
+      cy.get(".btn").click();
+
+      cy.get(".cuadro").then((cuadros) => {
+        mapaDePares = obtenerPares(cuadros);
+        listaDePares = Object.values(mapaDePares);
+
+        listaDePares[0][0].click();
+        listaDePares[1][1].click();
+      });
+
+      cy.get(".text-bg-secondary").should("have.lengthOf", 0);
+    });
   });
 });
+
+function obtenerPares(cuadros) {
+  let pares = {};
+  cuadros.each((i, cuadro) => {
+    const contenidoCuadro = cuadro.textContent;
+
+    if (pares[contenidoCuadro]) {
+      pares[contenidoCuadro].push(cuadro);
+    } else {
+      pares[contenidoCuadro] = [cuadro];
+    }
+  });
+
+  return pares;
+}
