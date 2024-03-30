@@ -53,6 +53,27 @@ context("test de integracion memotest", () => {
 
       cy.get(".text-bg-secondary").should("have.lengthOf", 0);
     });
+
+    it("encuentra todos los pares", () => {
+      let mapaDePares;
+      let listaDePares;
+
+      cy.get(".btn").click();
+
+      cy.get(".text-bg-secondary").should("have.lengthOf", 0);
+
+      cy.get(".cuadro").then((cuadros) => {
+        mapaDePares = obtenerPares(cuadros);
+        listaDePares = Object.values(mapaDePares);
+
+        listaDePares.forEach((par) => {
+          cy.get(par[0]).click();
+          cy.get(par[1]).click();
+        });
+      });
+
+      cy.get(".text-bg-secondary").should("have.lengthOf", NUMERO_CUADROS);
+    });
   });
 });
 
