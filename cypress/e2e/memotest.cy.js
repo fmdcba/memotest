@@ -1,18 +1,18 @@
 const URL = "http://127.0.0.1:8080/";
 const NUMERO_CUADROS = 16;
 
+before(() => {
+  cy.visit(URL);
+});
+
 context("test de integracion memotest", () => {
   describe("juega memotest", () => {
-    beforeEach(() => {
-      cy.visit(URL);
-    });
-
     it("se asegura que se muestre un tablero con cuadros", () => {
       cy.get(".cuadro").should("have.lengthOf", NUMERO_CUADROS);
     });
 
     it("se asegura que al jugar los cuadros sean aleatorios", () => {
-      cy.get(".btn").click();
+      cy.get("header").find(".btn").click();
 
       cy.get(".cuadro").then((cuadros) => {
         let cuadrosOriginales = [];
@@ -35,13 +35,10 @@ context("test de integracion memotest", () => {
   });
 
   describe("resuelve el juego", () => {
-    beforeEach(() => {
-      cy.visit(URL);
-    });
+    let mapaDePares, listaDePares;
 
     it("elige combinación de cuadros incorrecta", () => {
-      let mapaDePares, listaDePares;
-      cy.get(".btn").click();
+      cy.get("header").find(".btn").click();
 
       cy.get(".cuadro").then((cuadros) => {
         mapaDePares = obtenerPares(cuadros);
@@ -55,24 +52,32 @@ context("test de integracion memotest", () => {
     });
 
     it("encuentra todos los pares", () => {
-      let mapaDePares;
-      let listaDePares;
-
-      cy.get(".btn").click();
-
       cy.get(".text-bg-secondary").should("have.lengthOf", 0);
 
-      cy.get(".cuadro").then((cuadros) => {
-        mapaDePares = obtenerPares(cuadros);
-        listaDePares = Object.values(mapaDePares);
-
-        listaDePares.forEach((par) => {
-          cy.get(par[0]).click();
-          cy.get(par[1]).click();
-        });
+      listaDePares.forEach((par) => {
+        cy.get(par[0]).click();
+        cy.get(par[1]).click();
       });
 
       cy.get(".text-bg-secondary").should("have.lengthOf", NUMERO_CUADROS);
+    });
+
+    it("evalúa que el juego ha terminado", () => {
+      cy.get("#mensaje").should(
+        "have.text",
+        "Felicidades, ganaste y te tomó 9 intentos"
+      );
+    });
+
+    it("reinicia el juego", () => {
+      cy.get("header").find(".btn").should("have.text", "Reiniciar");
+
+      cy.get("header").find(".btn").click();
+
+      cy.get("#mensaje").should(
+        "have.text",
+        "Encontrá los pares de emojis para ganar"
+      );
     });
   });
 });
