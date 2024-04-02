@@ -7,4 +7,5 @@ module.exports = defineConfig({
     },
     testIsolation: false,
   },
+  video: true,
 });
