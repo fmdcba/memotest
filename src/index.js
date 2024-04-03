@@ -45,7 +45,7 @@ function manejarEleccionUsuario($tablero) {
 }
 
 function mostrarCuadro(cuadro) {
-  cuadro.style.fontSize = "xx-large";
+  cuadro.style.fontSize = "x-large";
 }
 
 function ocultarCuadro(cuadro) {
