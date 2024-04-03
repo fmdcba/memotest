@@ -30,7 +30,7 @@ function manejarEleccionUsuario($tablero) {
   $tablero.onclick = (e) => {
     const $cuadro = e.target;
 
-    if ($cuadro.classList.contains("cuadro")) {
+    if ($cuadro.classList.contains("cuadro") && !$cuadro.classList.contains("text-bg-secondary")) {
       mostrarCuadro($cuadro);
 
       if ($primerCuadro === null) {
