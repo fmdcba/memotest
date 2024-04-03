@@ -3,6 +3,7 @@ const EMOJIS = ["😀", "😠", "😎", "😲", "🙄", "😂", "👍", "😭"];
 const elementosTablero = EMOJIS.concat(EMOJIS);
 let $primerCuadro = null;
 let intentos = 0;
+const historialIntentos = [];
 let cuadrosEmparejados = 0;
 
 $botonJugar.onclick = configurarTablero;
@@ -85,6 +86,9 @@ function finalizarJuego() {
   if (cuadrosEmparejados === 16) {
     const $mensajeUsuario = document.querySelector("#mensaje");
     $mensajeUsuario.textContent = `Felicidades, ganaste y te tomó ${intentos} intentos`;
+    actualizarHistorial();
+    cuadrosEmparejados = 0;
+    intentos = 0;
   } else {
     return;
   }
@@ -100,4 +104,29 @@ function reiniciar($cuadros) {
       cuadro.classList.remove("text-bg-secondary");
     }
   });
+}
+
+function actualizarHistorial() {
+  historialIntentos.unshift(intentos);
+
+  if (historialIntentos.length === 4) {
+    historialIntentos.pop();
+  }
+
+  mostrarHistorial();
+}
+
+
+function mostrarHistorial() {
+  const $historial = document.querySelectorAll('li')
+  contador = 0;
+
+  $historial.forEach($elemento => {
+    if(historialIntentos[contador]) {
+      $elemento.textContent = historialIntentos[contador];
+      contador++;
+    } else {
+      $elemento.textContent = "";
+    }
+  })
 }

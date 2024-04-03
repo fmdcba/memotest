@@ -69,6 +69,13 @@ context("test de integracion memotest", () => {
       );
     });
 
+    it("verifica que el historial de puntos ha sido actualizado", () => {
+      cy.get("ul li").should("have.lengthOf", 3);
+
+      cy.get('ul li').first().should('have.text', "9")
+    })
+
+
     it("reinicia el juego", () => {
       cy.get("header").find(".btn").should("have.text", "Reiniciar");
 
